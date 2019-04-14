@@ -1,20 +1,20 @@
 import Dependencies._
 
-ThisBuild / scalaVersion     := "2.12.8"
-ThisBuild / version          := "0.1.0-SNAPSHOT"
-ThisBuild / organization     := "com.example"
-ThisBuild / organizationName := "example"
+ThisBuild / scalaVersion := "2.12.8"
+ThisBuild / version := "0.1.0-SNAPSHOT"
+ThisBuild / organization := "org.askucins"
+ThisBuild / organizationName := "lelek"
 
 lazy val root = (project in file("."))
   .settings(
-    name := "Filesearcher",
+    name := "FileSearcher",
     libraryDependencies += scalaTest % Test
   )
 
 // Uncomment the following for publishing to Sonatype.
 // See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html for more detail.
 
-// ThisBuild / description := "Some descripiton about your project."
+// ThisBuild / description := "Some description about your project."
 // ThisBuild / licenses    := List("Apache 2" -> new URL("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 // ThisBuild / homepage    := Some(url("https://github.com/example/project"))
 // ThisBuild / scmInfo := Some(
