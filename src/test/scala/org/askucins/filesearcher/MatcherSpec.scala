@@ -33,8 +33,8 @@ class MatcherSpec extends FlatSpec {
     assert(matcher.rootLocation == new File(".").getCanonicalPath)
   }
 
-  "Matcher with sub folder checking matching a root location with two subtree files matching to the filter" should
-    "return a list with those files names" in {
+  "Matcher with sub folders with some files matching to the filter and some not" should
+    "return a list with those matching files names" in {
     val searchSubDirectories = true
     val matcher = new Matcher("txt", new File("testFiles").getCanonicalPath, searchSubDirectories)
     val results = matcher.execute()
