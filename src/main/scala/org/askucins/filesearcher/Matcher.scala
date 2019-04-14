@@ -2,7 +2,7 @@ package org.askucins.filesearcher
 
 import java.io.File
 
-class Matcher(filter: String, val rootLocation: String = new File(".").getCanonicalPath()) {
+class Matcher(filter: String, val rootLocation: String = new File(".").getCanonicalPath, searchSubFolders: Boolean = false) {
   val rootIOObject: IOObject = FileConverter.convertToIOObject(new File(rootLocation))
 
   def execute(): List[String] = {
