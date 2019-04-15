@@ -38,6 +38,6 @@ class MatcherSpec extends FlatSpec {
     val searchSubDirectories = true
     val matcher = new Matcher("txt", new File("testFiles").getCanonicalPath, searchSubDirectories)
     val results = matcher.execute()
-    assert(results.sorted == List("readme.txt", "readmeA.txt", "readmeA2.txt", "readmeB.txt", "readmeBB.txt"))
+    assert(results.sorted == List("readme.txt", "readmeA.txt", "readmeA2.txt", "readmeB.txt", "readmeBB.txt","readmeC.txt"))
   }
 }

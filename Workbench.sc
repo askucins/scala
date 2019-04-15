@@ -1,2 +1,6 @@
-println(2+2)
-println("Hello, world!")
+val a = List ("a", "b")
+val b = List("a", "c")
+
+a ++ b
+List(a, b).reduce(_++_)
+
