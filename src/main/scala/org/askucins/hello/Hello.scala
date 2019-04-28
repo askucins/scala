@@ -1,4 +1,4 @@
-package org.askucins
+package org.askucins.hello
 
 object Hello extends Greeting with App {
   println(greeting)

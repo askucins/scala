@@ -1,4 +1,4 @@
-package org.askucins
+package org.askucins.hello
 
 import org.scalatest._
 
