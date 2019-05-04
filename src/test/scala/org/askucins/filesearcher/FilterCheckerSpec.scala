@@ -15,7 +15,7 @@ class FilterCheckerSpec extends FlatSpec {
   }
 
   "FilterChecker passed a list with a directory that matchers the filter" should
-    "should not return the directory" in {
+    "not return the directory" in {
     val listOfIOObjects = List(
       FileObject(new File("random")),
       DirectoryObject(new File("match")))

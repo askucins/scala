@@ -6,23 +6,42 @@ class Matcher(filter: String, val rootLocation: String = new File(".").getCanoni
   val rootIOObject: IOObject = FileConverter.convertToIOObject(new File(rootLocation))
 
   def execute(): List[String] = {
-
-    //TODO Replace this with tail recursion
-
-    def findMatchedFiles(root: IOObject): List[IOObject] = {
-      println(root.name)
+    //Naive implementation
+    /*
+    def recursiveMatchNaive(root: IOObject): List[IOObject] = {
       root match {
         case file: FileObject if FilterChecker(filter) matches file.name => List(file)
         case directory: DirectoryObject =>
           if (checkSubFolders)
-            (directory.children() map (it => findMatchedFiles(it))).reduce(_ ++ _)
+            (directory.children() map (it => recursiveMatchNaive(it))).reduce(_ ++ _)
           else
             FilterChecker(filter) findMatchedFiles directory.children()
         case _ => List()
       }
     }
+    val matchedFiles = recursiveMatchNaive(rootIOObject)
+    */
 
-    val matchedFiles = findMatchedFiles(rootIOObject)
+    def recursiveMatch(files: List[IOObject], currentList: List[FileObject]) = {
+      files match {
+        case List() => currentList
+        case ioObject :: rest =>
+          ioObject match {
+            case file: FileObject if FilterChecker(filter) matches file.name => List(file)
+            case directory: DirectoryObject => ???
+            case _ => ???
+          }
+      }
+    }
+
+    val matchedFiles = rootIOObject match {
+      case file: FileObject if FilterChecker(filter) matches file.name => List(file)
+      case directory: DirectoryObject =>
+        if (checkSubFolders) recursiveMatch(directory.children(), List())
+        else FilterChecker(filter) findMatchedFiles directory.children()
+      case _ => List()
+    }
+
     matchedFiles map (ioObject => ioObject.name)
   }
 }
