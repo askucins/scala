@@ -22,14 +22,16 @@ class Matcher(filter: String, val rootLocation: String = new File(".").getCanoni
     val matchedFiles = recursiveMatchNaive(rootIOObject)
     */
 
-    def recursiveMatch(files: List[IOObject], currentList: List[FileObject]) = {
+    def recursiveMatch(files: List[IOObject], currentList: List[FileObject]): List[FileObject] = {
       files match {
         case List() => currentList
         case ioObject :: rest =>
           ioObject match {
-            case file: FileObject if FilterChecker(filter) matches file.name => List(file)
-            case directory: DirectoryObject => ???
-            case _ => ???
+            case file: FileObject if FilterChecker(filter) matches file.name =>
+              recursiveMatch(rest, List.concat(currentList, List(file)))
+            case directory: DirectoryObject =>
+              recursiveMatch(List.concat(directory.children(), rest), currentList)
+            case _ => recursiveMatch(rest, currentList)
           }
       }
     }
