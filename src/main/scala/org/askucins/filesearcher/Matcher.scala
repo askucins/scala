@@ -28,9 +28,9 @@ class Matcher(filter: String, val rootLocation: String = new File(".").getCanoni
         case ioObject :: rest =>
           ioObject match {
             case file: FileObject if FilterChecker(filter) matches file.name =>
-              recursiveMatch(rest, List.concat(currentList, List(file)))
+              recursiveMatch(rest, file :: currentList)
             case directory: DirectoryObject =>
-              recursiveMatch(List.concat(directory.children(), rest), currentList)
+              recursiveMatch(rest ::: directory.children, currentList)
             case _ => recursiveMatch(rest, currentList)
           }
       }
