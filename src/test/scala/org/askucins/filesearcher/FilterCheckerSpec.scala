@@ -25,14 +25,22 @@ class FilterCheckerSpec extends FlatSpec {
 
   "FilterChecker passed a file with content that matches the filter" should
     "return that the match succeeded" in {
-    val isContentMatched = FilterChecker("pluralsight").matchesFileContent(new File("testFiles/readme.data"))
+    val isContentMatched = FilterChecker("pluralsight")
+      .matchesFileContent(new File("testFiles/readme.data"))
     assert(isContentMatched)
   }
 
   "FilterChecker passed a file with content that does not match the filter" should
     "return that the match failed" in {
-    val isContentMatched = FilterChecker("pluralsight").matchesFileContent(new File("testFiles/readme.txt"))
+    val isContentMatched = FilterChecker("pluralsight")
+      .matchesFileContent(new File("testFiles/readme.txt"))
     assert(!isContentMatched)
   }
 
+  "FilterChecker passed a non-existing file" should
+    "return that the match failed" in {
+    val isContentMatched = FilterChecker("pluralsight")
+      .matchesFileContent(new File("testFiles/nosuchfile.txt"))
+    assert(!isContentMatched)
+  }
 }

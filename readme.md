@@ -12,3 +12,8 @@ The application built within the tutorial is a basic file searcher addressing th
 * Allow filters to be regular expressions
 * Write results to a given file
 
+# Misc
+## scala.io
+* https://stackoverflow.com/questions/4458864/whats-the-right-way-to-use-scala-io-source
+* https://stackoverflow.com/questions/18171104/recommended-scala-io-library
+* https://www.reddit.com/r/scala/comments/3pob1f/what_is_the_status_of_file_io_in_scala/

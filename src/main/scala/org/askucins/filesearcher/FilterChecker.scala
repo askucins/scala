@@ -1,6 +1,8 @@
 package org.askucins.filesearcher
 
-import java.io.File
+import java.io.{File, FileNotFoundException}
+
+import scala.util.control.NonFatal
 
 class FilterChecker(filter: String) {
   def matches(content: String): Boolean = content contains filter
@@ -15,11 +17,21 @@ class FilterChecker(filter: String) {
 
   def matchesFileContent(file: File): Boolean = {
     import scala.io.Source
-    def source = Source.fromFile(file)
-
-    val hasMatch = source.getLines().exists(it => matches(it))
-    source.close()
-    hasMatch
+    // Scopes, scopes... hence stacked try-catch blocks!
+    try {
+      val source = Source.fromFile(file)
+      try
+        source.getLines() exists (line => matches(line))
+      catch { // If something happens during processing of that opened file
+        case NonFatal(_) => false
+      }
+      finally { // We still need to close that file!
+        source.close()
+      }
+    }
+    catch { // If something fails on attempt to open a file
+      case NonFatal(_) => false
+    }
   }
 }
 
