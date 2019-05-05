@@ -40,4 +40,29 @@ class MatcherSpec extends FlatSpec {
     val results = matcher.execute()
     assert(results.sorted == List("readme.txt", "readmeA.txt", "readmeA2.txt", "readmeB.txt", "readmeBB.txt", "readmeC.txt", "readmeC2.txt"))
   }
+
+  "Matcher given a path that has one file that matches the filter and content filter" should
+    "return a list with that file name" in {
+    val searchSubDirectories = true
+    val matcher = new Matcher("data", new File("testFiles").getCanonicalPath, searchSubDirectories, Some("pluralsight"))
+    val results = matcher.execute()
+    assert(results.sorted == List("readme.data"))
+  }
+
+  "Matcher given a path that has files that matched the filter but not the content filter" should
+    "return an empty list" in {
+    val searchSubDirectories = true
+    val matcher = new Matcher("txt", new File("testFiles").getCanonicalPath, searchSubDirectories, Some("pluralsight"))
+    val results = matcher.execute()
+    assert(results.sorted == List())
+  }
+
+  "Matcher given a path that has no files that matched the filter and content filter is provided" should
+    "return an empty list" in {
+    val searchSubDirectories = true
+    val matcher = new Matcher("thereisnosuchfile", new File("testFiles").getCanonicalPath, searchSubDirectories, Some("pluralsight"))
+    val results = matcher.execute()
+    assert(results.sorted == List())
+  }
+
 }

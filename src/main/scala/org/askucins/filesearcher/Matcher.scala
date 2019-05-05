@@ -4,7 +4,10 @@ import java.io.File
 
 import scala.annotation.tailrec
 
-class Matcher(filter: String, val rootLocation: String = new File(".").getCanonicalPath, checkSubFolders: Boolean = false) {
+class Matcher(filter: String,
+              val rootLocation: String = new File(".").getCanonicalPath,
+              checkSubFolders: Boolean = false,
+              contentFilter: Option[String] = None) {
   val rootIOObject: IOObject = FileConverter.convertToIOObject(new File(rootLocation))
 
   def execute(): List[String] = {
@@ -47,6 +50,12 @@ class Matcher(filter: String, val rootLocation: String = new File(".").getCanoni
     val matchedFiles = recursiveMatchNaive(rootIOObject)
     */
 
-    matchedFiles map (ioObject => ioObject.name)
+    val contentFilteredFiles = contentFilter match {
+      case Some(givenContentFilter) => matchedFiles filter (ioObject =>
+        FilterChecker(givenContentFilter).matchesFileContent(ioObject.file))
+      case None => matchedFiles
+    }
+
+    contentFilteredFiles map (ioObject => ioObject.name)
   }
 }
